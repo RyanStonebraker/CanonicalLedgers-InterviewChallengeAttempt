@@ -3,13 +3,13 @@ getRawBlockHeightJSON() {
 }
 
 getBlockInputs() {
-  getRawBlockHeightJSON $1 | jq '.result.fblock.transactions | ..[]?.inputs[].amount'
+  getRawBlockHeightJSON $1 | jq -r '.result.fblock.transactions | ..[]?.inputs[].amount'
 }
 
 getFactoidRangeList() {
   for i in `seq $1 $2`;
   do
-    getBlockInputs $i
+    getBlockInputs $i 2> /dev/null
   done
 }
 
